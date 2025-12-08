@@ -42,7 +42,7 @@ export default function ScriptGenerator({ locale }) {
     <div className="max-w-2xl mx-auto  rounded-3xl backdrop-blur-md ">
       <button
         onClick={toggleScript}
-        className="w-full py-2 px-19 mb-6 text-lg font-semibold text-white bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 hover:from-slate-800 hover:to-blue-900 rounded-xl transition duration-300 shadow-md"
+        className="w-full py-2 px-19 mb-6 text-lg font-semibold text-white bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 hover:from-slate-800 hover:to-teal-900 rounded-xl transition duration-300 shadow-md"
       >
         {showScript ? t("Close") : t("GenerateScriptTag")}
       </button>

@@ -10,7 +10,7 @@ const en = {
   confirmPasswordPlaceholder: 'Confirm your password',
   signup: 'Sign up',
   alreadyHaveAccount: "Already have an account? ",
-  welcomeMessage: 'Welcome to Neurovise – Your AI-Powered Business Assistant.',
+  welcomeMessage: 'Welcome to Promptly Bot – Your AI-Powered Business Assistant.',
   login: 'Log in',
   noAccount: "Don't have an Account? ",
   serviceName: 'Service Name',
@@ -110,7 +110,7 @@ const en = {
   response: "Response",
   error: "Error",
   signupSuccess:"Registered new User successfully",
-  chatbotPageTitle: 'Chat with Neurovise Chatbot',
+  chatbotPageTitle: 'Chat with Promptly Bot',
 
   // Integrated into your existing chatbot object
   chatbot: {

@@ -130,7 +130,7 @@ const ChatHistory = () => {
                         {formatTimeAgo(session.created_at)}
                       </p>
                     </div>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 flex-shrink-0">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-teal-100 text-teal-800 flex-shrink-0">
                       {session.messages.length} messages
                     </span>
                   </div>
@@ -157,7 +157,7 @@ const ChatHistory = () => {
                 <div className="border-t border-gray-200 p-4 bg-gray-50 flex justify-end">
                   <button
                     onClick={() => openModal(session)}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center space-x-2 transition-colors"
+                    className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg flex items-center space-x-2 transition-colors"
                   >
                     <IoIosChatboxes className="h-5 w-5" />
                     <span>View Chat</span>
@@ -246,11 +246,11 @@ const ChatHistory = () => {
                 {selectedSession.messages.map((msg, idx) => (
                   <div key={idx} className="space-y-2">
                     <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center">
+                      <div className="flex-shrink-0 bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center">
                         {selectedSession.full_name ? selectedSession.full_name.charAt(0) : "U"}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="bg-blue-100 text-blue-900 p-3 rounded-lg">
+                        <div className="bg-teal-100 text-teal-900 p-3 rounded-lg">
                           <p>{msg.query}</p>
                         </div>
                         <p className="text-xs text-gray-500 mt-1">

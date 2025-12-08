@@ -597,8 +597,8 @@ export default function SystemPromptModal({ isOpen, onClose }) {
                                   <p className="text-gray-900 font-medium mb-3">{item.question}</p>
                                   
                                   <div className="flex items-center gap-2 mb-2">
-                                    <span className="inline-block w-2 h-2 bg-blue-500 rounded-full"></span>
-                                    <span className="text-sm font-medium text-blue-700">Answer</span>
+                                    <span className="inline-block w-2 h-2 bg-teal-500 rounded-full"></span>
+                                    <span className="text-sm font-medium text-teal-700">Answer</span>
                                   </div>
                                   <p className="text-gray-700 leading-relaxed">{item.answer}</p>
                                 </div>

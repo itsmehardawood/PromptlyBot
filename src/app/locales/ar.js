@@ -11,7 +11,7 @@ const ar = {
   confirmPasswordPlaceholder: 'أكد كلمة المرور',
   signup: 'التسجيل',
   alreadyHaveAccount: "هل لديك حساب بالفعل؟ ",
-  welcomeMessage: 'مرحباً بكم في نيوروايز – مساعدكم التجاري المدعوم بالذكاء الاصطناعي',
+  welcomeMessage: 'مرحباً بكم في برومبتلي بوت – مساعدكم التجاري المدعوم بالذكاء الاصطناعي',
   login: 'تسجيل الدخول',
   noAccount: "ليس لديك حساب؟ ",
   serviceName: 'اسم الخدمة',
@@ -113,7 +113,7 @@ success: {
   error: "خطأ",
 
   signupSuccess: "تم التسجيل بنجاح",
-  chatbotPageTitle: 'تحدث مع إيكو-بوت',
+  chatbotPageTitle: 'تحدث مع برومبتلي بوت',
 
   chatbot: {
     userId: 'معرف المستخدم',

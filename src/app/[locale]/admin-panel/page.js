@@ -133,9 +133,9 @@ export default function ServicesAdminPage() {
       payload: null,
       title: "Confirm Changes",
       message: "Are you sure you want to save these changes?",
-      icon: <FaEdit className="text-blue-500 text-4xl mb-4" />,
+      icon: <FaEdit className="text-teal-500 text-4xl mb-4" />,
       confirmText: "Save Changes",
-      confirmColor: "bg-blue-600 hover:bg-blue-700",
+      confirmColor: "bg-teal-600 hover:bg-teal-700",
     });
   };
 
@@ -286,9 +286,9 @@ export default function ServicesAdminPage() {
       payload: id,
       title: "Edit Service",
       message: `You are about to edit "${service?.serviceName}". Proceed?`,
-      icon: <FaEdit className="text-blue-500 text-4xl mb-4" />,
+      icon: <FaEdit className="text-teal-500 text-4xl mb-4" />,
       confirmText: "Edit",
-      confirmColor: "bg-blue-600 hover:bg-blue-700",
+      confirmColor: "bg-teal-600 hover:bg-teal-700",
     });
   };
 
@@ -338,9 +338,9 @@ export default function ServicesAdminPage() {
   return (
     <div className="p-8 space-y-12 text-black min-h-screen bg-cyan-900 bg-gradient-to-tl  via-transparent  rtl:bg-gradient-to-br from-cyan-600 to-cyan-900">
       {/* <BackButton /> */}
-    <div className="max-w-3xl mx-auto p-1 bg-gradient-to-r from-blue-900 via-blue-500 to-blue-600 rounded-3xl shadow-2xl mt-8">
+    <div className="max-w-3xl mx-auto p-1 bg-gradient-to-r from-teal-900 via-teal-500 to-teal-600 rounded-3xl shadow-2xl mt-8">
    <div className="bg-[#0f172a] rounded-3xl p-8 text-center">
-    <h1 className="text-5xl font-extrabold bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
+    <h1 className="text-5xl font-extrabold bg-gradient-to-r from-cyan-300 via-teal-400 to-emerald-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
       Admin Panel
     </h1>
   </div>
@@ -355,7 +355,7 @@ export default function ServicesAdminPage() {
         {isLoading ? (
           <div className="bg-white rounded-xl p-8 text-center shadow-sm">
             <div className="mx-auto w-24 h-24 flex items-center justify-center mb-4">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-500"></div>
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-2">Loading services...</h3>
             <p className="text-gray-500">Please wait while we fetch your services</p>
@@ -390,7 +390,7 @@ export default function ServicesAdminPage() {
                       {service.description.length > 100 && (
                         <button
                           onClick={() => handleViewMore(service.description)}
-                          className="text-blue-500 text-sm mt-1 hover:underline"
+                          className="text-teal-500 text-sm mt-1 hover:underline"
                         >
                           Read more
                         </button>
@@ -426,7 +426,7 @@ export default function ServicesAdminPage() {
                         className="p-2 rounded-full hover:bg-gray-200 transition-colors"
                         title="View details"
                       >
-                        <IoEyeSharp className="h-5 w-5 text-blue-600" />
+                        <IoEyeSharp className="h-5 w-5 text-teal-600" />
                       </button>
                       
                       {/* Edit Button */}
@@ -737,7 +737,7 @@ export default function ServicesAdminPage() {
                   {isEditMode ? (
                     <button
                       onClick={handleSaveClick}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                      className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded"
                     >
                       Save
                     </button>
@@ -786,13 +786,13 @@ export default function ServicesAdminPage() {
                       payload: null,
                     })
                   }
-                  className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                  className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleConfirm}
-                  className={`px-6 py-2 border border-transparent rounded-md text-white ${confirmationModal.confirmColor} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors`}
+                  className={`px-6 py-2 border border-transparent rounded-md text-white ${confirmationModal.confirmColor} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors`}
                 >
                   {confirmationModal.confirmText}
                 </button>

@@ -157,7 +157,7 @@ const ServiceManagement = () => {
                   <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
                     {t("serviceManagement")}
                   </h1>
-                  <div className="h-1 w-20 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded-full"></div>
+                  <div className="h-1 w-20 bg-gradient-to-r from-teal-400 to-emerald-500 mx-auto rounded-full"></div>
                 </div>
 
                 {/* Main Content */}
@@ -180,7 +180,7 @@ const ServiceManagement = () => {
                     {/* Service Form */}
                     <div className="mb-10">
                       <h2 className="text-xl font-semibold text-black mb-6 flex items-center">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center mr-2">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-teal-500 to-emerald-600 flex items-center justify-center mr-2">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                           </svg>
@@ -204,7 +204,7 @@ const ServiceManagement = () => {
                               value={serviceName}
                               onChange={(e) => setServiceName(e.target.value)}
                               required
-                              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-black transition-all duration-200"
+                              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-black transition-all duration-200"
                             />
                           </div>
 
@@ -221,7 +221,7 @@ const ServiceManagement = () => {
                               value={description}
                               onChange={(e) => setDescription(e.target.value)}
                               rows={3}
-                              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 text-black transition-all duration-200"
+                              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-black transition-all duration-200"
                             />
                             <p className="text-xs text-gray-800 mt-1">
                               {description.length} {t("characters")}
@@ -236,7 +236,7 @@ const ServiceManagement = () => {
                                 onChange={() => setIsActive(!isActive)}
                                 className="sr-only peer"
                               />
-                              <div className="w-11 h-6 bg-white/10 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500"></div>
+                              <div className="w-11 h-6 bg-white/10 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-500"></div>
                               <span className="ml-3 text-sm font-medium text-gray-800">
                                 {t("enableService")}
                               </span>
@@ -249,7 +249,7 @@ const ServiceManagement = () => {
                     {/* Working Hours */}
                     <div className="mb-10">
                       <h2 className="text-xl font-semibold text-black mb-6 flex items-center">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center mr-2">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-teal-500 to-emerald-600 flex items-center justify-center mr-2">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
@@ -350,7 +350,7 @@ const ServiceManagement = () => {
                     {/* Chat Communication Style */}
                     <div className="mb-10">
                       <h2 className="text-xl font-semibold text-black mb-6 flex items-center">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center mr-2">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-teal-500 to-emerald-600 flex items-center justify-center mr-2">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                           </svg>
@@ -362,7 +362,7 @@ const ServiceManagement = () => {
                         <div 
                           className={`flex items-center gap-3 p-4 rounded-lg cursor-pointer transition-all duration-200 ${
                             selectedTone === t("friendlyOption")
-                              ? "bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30"
+                                ? "bg-gradient-to-r from-teal-500/20 to-emerald-500/20 border border-teal-500/30"
                               : "bg-white/5 border border-white/10 hover:bg-white/10"
                           }`}
                           onClick={() => setSelectedTone(t("friendlyOption"))}
@@ -370,7 +370,7 @@ const ServiceManagement = () => {
                           <div className="flex-shrink-0">
                             <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
                               selectedTone === t("friendlyOption")
-                                ? "bg-blue-500"
+                                ? "bg-teal-500"
                                 : "border-2 border-white/40"
                             }`}>
                               {selectedTone === t("friendlyOption") && (
@@ -387,7 +387,7 @@ const ServiceManagement = () => {
                         <div 
                           className={`flex items-center gap-3 p-4 rounded-lg cursor-pointer transition-all duration-200 ${
                             selectedTone === t("formalOption")
-                              ? "bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30"
+                              ? "bg-gradient-to-r from-teal-500/20 to-emerald-500/20 border border-teal-500/30"
                               : "bg-white/5 border border-white/10 hover:bg-white/10"
                           }`}
                           onClick={() => setSelectedTone(t("formalOption"))}
@@ -395,7 +395,7 @@ const ServiceManagement = () => {
                           <div className="flex-shrink-0">
                             <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
                               selectedTone === t("formalOption")
-                                ? "bg-blue-500"
+                                ? "bg-teal-500"
                                 : "border-2 border-white/40"
                             }`}>
                               {selectedTone === t("formalOption") && (
@@ -422,7 +422,7 @@ const ServiceManagement = () => {
                       <button
                         onClick={handleServiceSubmit}
                         disabled={isSubmitting}
-                        className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-blue-500/20 transform transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+                        className="px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-teal-500/20 transform transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
                       >
                         {isSubmitting ? (
                           <div className="flex items-center">

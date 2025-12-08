@@ -36,7 +36,7 @@ const LanguageButton = () => {
     <div className="relative z-50" ref={dropdownRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
+        className="flex items-center gap-2 px-4 py-2 rounded bg-teal-600 text-white hover:bg-teal-700 transition"
       >
         {locale === 'en' ? 'English' : 'Arabic'}
         <ChevronDown size={16} />

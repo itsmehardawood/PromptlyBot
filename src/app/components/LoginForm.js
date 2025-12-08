@@ -130,7 +130,7 @@ function LoginForm({ locale = 'ar' }) {
               type="checkbox"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
             />
             <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700">
               {t('rememberMe') || 'Remember me'}
@@ -139,7 +139,7 @@ function LoginForm({ locale = 'ar' }) {
 
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            className="w-full py-2 px-4 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50"
           >
             {t('loginButton')}
           </button>
@@ -147,7 +147,7 @@ function LoginForm({ locale = 'ar' }) {
 
         <p className="mt-4 text-center text-sm text-gray-600">
           {t('noAccount')}{' '}
-          <Link href={`/${locale}/signup`} className="text-blue-500 hover:text-blue-700">
+          <Link href={`/${locale}/signup`} className="text-teal-500 hover:text-teal-700">
             {t('signup')}
           </Link>
         </p>

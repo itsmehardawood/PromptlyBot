@@ -74,7 +74,7 @@ export default function HomePage() {
           {/* Floating button to toggle the chat widget */}
           <div
             onClick={() => setIsChatOpen(!isChatOpen)}
-            className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg cursor-pointer z-50"
+            className="fixed bottom-4 right-4 bg-teal-600 text-white p-4 rounded-full shadow-lg cursor-pointer z-50"
           >
             <span className="text-2xl">💬</span>
           </div>
@@ -91,14 +91,14 @@ export default function HomePage() {
 
           <button
             onClick={() => router.push(`/${locale}/admin-panel`)}
-            className="w-full py-2 px-6 text-lg font-semibold text-white bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 hover:from-slate-800 hover:to-blue-900 rounded-xl transition duration-300 shadow-md"
+            className="w-full py-2 px-6 text-lg font-semibold text-white bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 hover:from-slate-800 hover:to-teal-900 rounded-xl transition duration-300 shadow-md"
           >
             {t("AdminPanel")}
           </button>
 
           <button
             onClick={() => router.push(`/${locale}/business-service`)}
-            className="w-full py-2 px-6 text-lg font-semibold text-white bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 hover:from-slate-800 hover:to-blue-900 rounded-xl transition duration-300 shadow-md"
+            className="w-full py-2 px-6 text-lg font-semibold text-white bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 hover:from-slate-800 hover:to-teal-900 rounded-xl transition duration-300 shadow-md"
           >
             {t("manageBusiness")}
           </button>

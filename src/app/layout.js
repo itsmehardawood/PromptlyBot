@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Neurovise Chatbot",
-  description: "By itsmehardawood @Neurovise",
+  title: "Promptly Bot",
+  description: "By itsmehardawood @Promptly Bot",
    icons: {
     icon: "/images/logo_only.png", // relative to /public
   },
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
       <Head>
 <link rel="shortcut icon" href="/images/logo_only.png" type="image/png" />
 <link rel="icon" href="/images/logo_only.png" type="image/png" />
-        <title>Neurovise Chatbot</title>
+        <title>Promptly Bot</title>
       </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-black bg-transparent m-0 p-0`}>
         {children}

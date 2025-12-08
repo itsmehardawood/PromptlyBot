@@ -125,7 +125,7 @@ export default function ChatbotWidget({ locale, isOpen, onClose, propUserId, onO
         <div className="fixed bottom-4 right-4 z-50 text-black" id="chatbot-widget-container">
           <div className="relative mb-2 mr-4">
             <div className="flex flex-col h-[500px] max-w-full w-full sm:max-w-xl bg-white shadow-md rounded-2xl overflow-hidden">
-              <div className="p-4 bg-blue-600 text-white relative">
+              <div className="p-4 bg-teal-600 text-white relative">
               <h1 className="text-xl font-bold">{t("chatbotTitle")}</h1>
 
               {/* Close button */}
@@ -171,7 +171,7 @@ export default function ChatbotWidget({ locale, isOpen, onClose, propUserId, onO
                 />
                 <button
                   type="submit"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl w-full"
+                  className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-xl w-full"
                 >
                   {t("start")}
                 </button>
@@ -196,7 +196,7 @@ export default function ChatbotWidget({ locale, isOpen, onClose, propUserId, onO
                         <div
                           className={`max-w-[80%] p-3 rounded-lg ${
                             msg.sender === "user"
-                              ? "bg-blue-500 text-white rounded-br-none"
+                              ? "bg-teal-500 text-white rounded-br-none"
                               : msg.isError
                               ? "bg-red-100 text-red-800 rounded-bl-none"
                               : "bg-gray-200 text-gray-800 rounded-bl-none"
@@ -233,13 +233,13 @@ export default function ChatbotWidget({ locale, isOpen, onClose, propUserId, onO
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder={t("askAnything")}
-                      className="flex-1 p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 text-black focus:ring-blue-500"
+                      className="flex-1 p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 text-black focus:ring-teal-500"
                       disabled={loading}
                     />
                     <button
                       type="submit"
                       disabled={loading || !message.trim()}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl disabled:opacity-50"
+                      className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-xl disabled:opacity-50"
                     >
                       {t("send")}
                     </button>
@@ -255,10 +255,10 @@ export default function ChatbotWidget({ locale, isOpen, onClose, propUserId, onO
       {/* Floating Button */}
       {!isOpen && (
         <div className="fixed bottom-4 right-4 z-50">
-          <div
-            onClick={() => onOpen && onOpen()}
-            className="bg-blue-600 text-white w-14 h-14 flex items-center justify-center rounded-full shadow-lg cursor-pointer hover:bg-blue-700 transition-colors"
-          >
+            <div
+              onClick={() => onOpen && onOpen()}
+              className="bg-teal-600 text-white w-14 h-14 flex items-center justify-center rounded-full shadow-lg cursor-pointer hover:bg-teal-700 transition-colors"
+            >
             <span className="text-2xl">💬</span>
           </div>
         </div>
