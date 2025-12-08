@@ -1,8 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **PromptlyBot**
 
-## Getting Started
+### No-Code AI Chatbot for Service Providers
 
-First, run the development server:
+PromptlyBot is a no-code AI chatbot builder that allows service providers to create and embed an intelligent chatbot on their website without technical skills. Users simply fill out a setup form, add FAQs, and receive a one-line script tag to paste into their website’s `<head>` section.
+
+---
+
+## **How It Works**
+
+1. **Fill Out the Setup Form**
+   Enter your business details, chatbot personality, and basic information.
+
+2. **Add FAQs**
+   Add common questions and answers your clients normally ask.
+
+3. **Copy Your Script**
+   After completing setup, PromptlyBot generates a single one-liner script tag.
+
+4. **Paste Into Your Website**
+   Add the script inside your site’s `<head>` tag, and the chatbot appears automatically.
+
+---
+
+## **Tech Stack**
+
+* Next.js
+* React
+* API Routes / Server Actions
+* Vercel (recommended for deployment)
+
+---
+
+## **Development Setup**
+
+Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -14,24 +57,43 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the app:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edit the UI by modifying:
 
-## Learn More
+```
+app/page.js
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## **Environment Variables**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Create `.env.local` and add required keys:
 
-## Deploy on Vercel
+```
+NEXT_PUBLIC_API_KEY=your_key_here
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+(Add more variables as needed.)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# echo-chatbot
+---
+
+## **Deployment**
+
+Deploy easily on Vercel:
+
+* [https://vercel.com](https://vercel.com)
+* [https://nextjs.org/docs/app/building-your-application/deploying](https://nextjs.org/docs/app/building-your-application/deploying)
+
+---
+
+## **Project Name**
+
+`promptlybot`
+
+---
