@@ -64,12 +64,13 @@ export default function HomePage() {
         {/* Main content */}
         <div className="relative z-20 flex flex-col items-center gap-6 w-full max-w-xs">
           <Image
-            src="/images/pic.png"
-            height={300}
-            width={350}
+            src="/images/logo.png"
+            height={200}
+            width={150}
             alt="this is our logo"
             priority
           />
+          {/* <p className="text-xl font-bold p-0 m-0 ">Promptly Bot</p> */}
 
           {/* Floating button to toggle the chat widget */}
           <div

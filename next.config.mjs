@@ -9,7 +9,7 @@ const nextConfig = {
 
     config.resolve.extensions.push('.mjs');
 
-    return config;
+    return config;gi
   }
 };
 

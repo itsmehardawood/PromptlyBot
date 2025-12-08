@@ -16,7 +16,7 @@ export const metadata = {
   title: "Promptly Bot",
   description: "By itsmehardawood @Promptly Bot",
    icons: {
-    icon: "/images/logo_only.png", // relative to /public
+    icon: "/images/logo.png", // relative to /public
   },
 
 };
