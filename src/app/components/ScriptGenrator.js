@@ -25,7 +25,7 @@ export default function ScriptGenerator({ locale }) {
 
   const toggleScript = () => {
     if (!showScript) {
-      const script = `<script src="https://chatbot.neurovisesolutions.com/${locale}/api/chatbot-widget?userId=${userId}" async></script>`;
+      const script = `<script src="https://promptly-bot.vercel.app/${locale}/api/chatbot-widget?userId=${userId}" async></script>`;
       setScriptTag(script);
       setCopied(false);
     }
@@ -39,31 +39,41 @@ export default function ScriptGenerator({ locale }) {
   };
 
   return (
-    <div className="max-w-2xl mx-auto  rounded-3xl backdrop-blur-md ">
+    <div className="max-w-3xl rounded-2xl border border-slate-700 bg-slate-950/70 p-4 backdrop-blur-md">
       <button
         onClick={toggleScript}
-        className="w-full py-2 px-19 mb-6 text-lg font-semibold text-white bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 hover:from-slate-800 hover:to-teal-900 rounded-xl transition duration-300 shadow-md"
+        disabled={!userId}
+        className="mb-4 w-full rounded-xl bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 px-4 py-3 text-base font-semibold text-white shadow-md transition duration-300 hover:from-slate-800 hover:to-teal-900 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {showScript ? t("Close") : t("GenerateScriptTag")}
       </button>
 
+      {!userId && (
+        <p className="mb-3 rounded-lg border border-amber-400/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-200">
+          User session not found yet. Please log in again if this message persists.
+        </p>
+      )}
+
       {showScript && scriptTag && (
-        <div className="space-y-4 animate-fade-in">
-          <p className="text-white font-medium">
+        <div className="space-y-4">
+          <p className="font-medium text-slate-100">
             {t("Copy and Paste")}:
           </p>
           <textarea
             value={scriptTag}
             readOnly
             rows={5}
-            className="w-full bg-gray-800 text-white text-sm p-3 rounded-lg border border-white/20 resize-none focus:outline-none"
+            className="w-full resize-none rounded-lg border border-slate-600 bg-slate-900 p-3 text-sm text-slate-100 focus:outline-none"
           />
-          <button
-            onClick={copyToClipboard}
-            className="py-2 px-4 bg-white text-black rounded-lg hover:bg-gray-200 transition"
-          >
-            {copied ? t("Copied") : t("Copy")}
-          </button>
+          <div className="flex items-center justify-between gap-3">
+            <button
+              onClick={copyToClipboard}
+              className="rounded-lg bg-cyan-500 px-4 py-2 font-medium text-slate-950 transition hover:bg-cyan-400"
+            >
+              {copied ? t("Copied") : t("Copy")}
+            </button>
+            {copied && <span className="text-sm text-emerald-300">Script copied successfully.</span>}
+          </div>
         </div>
       )}
     </div>

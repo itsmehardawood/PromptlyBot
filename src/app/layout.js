@@ -25,8 +25,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
-<link rel="shortcut icon" href="/images/logo_only.png" type="image/png" />
-<link rel="icon" href="/images/logo_only.png" type="image/png" />
+<link rel="shortcut icon" href="/images/logo.png" type="image/png" />
+<link rel="icon" href="/images/logo.png" type="image/png" />
         <title>Promptly Bot</title>
       </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-black bg-transparent m-0 p-0`}>

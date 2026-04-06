@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
+import LandingPage from "./components/landing/LandingPage";
 
 export default function RootPage() {
-  redirect(`/{locale}/login`); // Redirects / to /he
+  return <LandingPage />;
 }

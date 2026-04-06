@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "@/lib/translations";
+import { apiUrl } from "@/lib/api";
 
 export default function ChatbotWidget({ locale, isOpen, onClose, propUserId, onOpen }) {
   const [sessionId, setSessionId] = useState(""); // New state for session ID
@@ -48,7 +49,7 @@ export default function ChatbotWidget({ locale, isOpen, onClose, propUserId, onO
     setLoading(true);
 
     try {
-      const res = await fetch("https://api.neurovisesolutions.com/chat", {
+      const res = await fetch(apiUrl("/chat"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +96,7 @@ export default function ChatbotWidget({ locale, isOpen, onClose, propUserId, onO
     e.preventDefault();
 
     try {
-      const res = await fetch("https://api.neurovisesolutions.com/chat/start", {
+      const res = await fetch(apiUrl("/chat/start"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

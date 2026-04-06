@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { IoIosChatboxes, IoMdClose } from "react-icons/io";
 import { FiClock } from "react-icons/fi";
+import { apiUrl } from "@/lib/api";
 
 const ChatHistory = () => {
   const [chatSessions, setChatSessions] = useState([]);
@@ -28,7 +29,7 @@ const ChatHistory = () => {
 
     const fetchChatSessions = async () => {
       try {
-        const res = await fetch(`https://api.neurovisesolutions.com/chat/sessions/${userId}`);
+        const res = await fetch(apiUrl(`/chat/sessions/${userId}`));
         const data = await res.json();
         
         // Sort chat sessions in descending order (newest first)
@@ -96,21 +97,21 @@ const ChatHistory = () => {
   const hasMoreSessions = chatSessions.length > 5;
 
   return (
-    <div className="p-2 bg-gray-700 rounded-lg px-3 py-5">
+    <div className="rounded-lg border border-slate-700 bg-slate-950/60 px-3 py-5">
       {loading ? (
-        <div className="bg-white rounded-xl p-8 text-center shadow-sm">
+        <div className="rounded-xl border border-slate-700 bg-slate-900 p-8 text-center shadow-sm">
           <div className="animate-pulse flex flex-col items-center">
-            <div className="h-6 w-24 bg-gray-200 rounded mb-4"></div>
-            <div className="h-4 w-48 bg-gray-200 rounded"></div>
+            <div className="mb-4 h-6 w-24 rounded bg-slate-700"></div>
+            <div className="h-4 w-48 rounded bg-slate-700"></div>
           </div>
         </div>
       ) : chatSessions.length === 0 ? (
-        <div className="bg-white rounded-xl p-8 text-center shadow-sm">
-          <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-            <IoIosChatboxes className="h-12 w-12 text-gray-400" />
+        <div className="rounded-xl border border-slate-700 bg-slate-900 p-8 text-center shadow-sm">
+          <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-slate-800">
+            <IoIosChatboxes className="h-12 w-12 text-slate-400" />
           </div>
-          <h3 className="text-xl font-medium text-gray-900 mb-2">No chat history</h3>
-          <p className="text-gray-500">No chat sessions found for this user</p>
+          <h3 className="mb-2 text-xl font-medium text-slate-100">No chat history</h3>
+          <p className="text-slate-400">No chat sessions found for this user</p>
         </div>
       ) : (
         <>
@@ -118,46 +119,46 @@ const ChatHistory = () => {
             {displayedSessions.map((session) => (
               <div 
                 key={session._id} 
-                className="bg-white rounded-xl overflow-hidden shadow-lg transition-all hover:shadow-2xl"
+                className="overflow-hidden rounded-xl border border-slate-700 bg-slate-900 shadow-lg transition-all hover:border-cyan-500/50"
               >
                 <div className="p-6">
                   <div className="flex justify-between items-start">
                     <div className="flex-1 pr-2">
-                      <h3 className="text-xl font-bold text-gray-800 break-words">
+                      <h3 className="text-xl font-bold text-slate-100 break-words">
                         {session.full_name || "Anonymous User"}
                       </h3>
-                      <p className="text-sm text-gray-500 mt-1">
+                      <p className="mt-1 text-sm text-slate-400">
                         {formatTimeAgo(session.created_at)}
                       </p>
                     </div>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-teal-100 text-teal-800 flex-shrink-0">
+                    <span className="inline-flex flex-shrink-0 items-center rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-200">
                       {session.messages.length} messages
                     </span>
                   </div>
                   
                   <div className="mt-4 space-y-2">
-                    <div className="flex items-center text-sm text-gray-600">
-                      <span className="font-medium mr-2">Email:</span>
+                    <div className="flex items-center text-sm text-slate-300">
+                      <span className="mr-2 font-medium text-slate-400">Email:</span>
                       <span className="overflow-auto">{session.email || "Not provided"}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <span className="font-medium mr-2">Phone:</span>
+                    <div className="flex items-center text-sm text-slate-300">
+                      <span className="mr-2 font-medium text-slate-400">Phone:</span>
                       <span>{session.phone_number || "Not provided"}</span>
                     </div>
                   </div>
                   
-                  <div className="mt-4 pt-4 border-t border-gray-200">
-                    <div className="flex items-center text-sm text-gray-500">
+                  <div className="mt-4 border-t border-slate-700 pt-4">
+                    <div className="flex items-center text-sm text-slate-400">
                       <FiClock className="mr-2" />
                       <span>{formatDateTime(session.created_at)}</span>
                     </div>
                   </div>
                 </div>
                 
-                <div className="border-t border-gray-200 p-4 bg-gray-50 flex justify-end">
+                <div className="flex justify-end border-t border-slate-700 bg-slate-950 p-4">
                   <button
                     onClick={() => openModal(session)}
-                    className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg flex items-center space-x-2 transition-colors"
+                    className="flex items-center space-x-2 rounded-lg bg-cyan-500 px-4 py-2 text-slate-950 transition-colors hover:bg-cyan-400"
                   >
                     <IoIosChatboxes className="h-5 w-5" />
                     <span>View Chat</span>
@@ -168,20 +169,20 @@ const ChatHistory = () => {
             
             {/* Show More Button Card */}
             {hasMoreSessions && !showAll && (
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg transition-all hover:shadow-2xl border-2 border-dashed border-gray-300">
+              <div className="overflow-hidden rounded-xl border-2 border-dashed border-slate-600 bg-slate-900 shadow-lg transition-all hover:border-cyan-500/40">
                 <div className="p-6 flex flex-col items-center justify-center h-full min-h-[300px]">
-                  <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                    <IoIosChatboxes className="h-8 w-8 text-gray-400" />
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-800">
+                    <IoIosChatboxes className="h-8 w-8 text-slate-400" />
                   </div>
-                  <h3 className="text-lg font-medium text-gray-700 mb-2">
+                  <h3 className="mb-2 text-lg font-medium text-slate-200">
                     {chatSessions.length - 5} More Sessions
                   </h3>
-                  <p className="text-gray-500 text-center mb-4">
+                  <p className="mb-4 text-center text-slate-400">
                     Click to view all chat sessions
                   </p>
                   <button
                     onClick={() => setShowAll(true)}
-                    className="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors font-medium"
+                    className="rounded-lg bg-cyan-500 px-6 py-3 font-medium text-slate-950 transition-colors hover:bg-cyan-400"
                   >
                     Show More
                   </button>
@@ -195,7 +196,7 @@ const ChatHistory = () => {
             <div className="mt-6 text-center">
               <button
                 onClick={() => setShowAll(false)}
-                className="px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+                className="rounded-lg bg-slate-700 px-6 py-3 font-medium text-white transition-colors hover:bg-slate-600"
               >
                 Show Less
               </button>
@@ -206,14 +207,14 @@ const ChatHistory = () => {
 
       {/* Modal */}
       {isModalOpen && selectedSession && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl w-full max-w-2xl h-full md:h-[80vh] overflow-y-auto shadow-2xl relative">
-            <div className="sticky top-0 bg-white p-6 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-xl font-semibold break-words pr-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="relative h-full w-full max-w-2xl overflow-y-auto rounded-xl border border-slate-700 bg-slate-950 shadow-2xl md:h-[80vh]">
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-700 bg-slate-900/95 p-6 backdrop-blur">
+              <h2 className="pr-4 text-xl font-semibold break-words text-slate-100">
                 Chat with {selectedSession.full_name || "Anonymous User"}
               </h2>
               <button
-                className="text-gray-500 hover:text-red-600 text-2xl flex-shrink-0"
+                className="flex-shrink-0 text-2xl text-slate-400 transition hover:text-rose-400"
                 onClick={closeModal}
               >
                 <IoMdClose />
@@ -221,23 +222,23 @@ const ChatHistory = () => {
             </div>
             
             <div className="p-6 space-y-6">
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="rounded-lg border border-slate-700 bg-slate-900 p-4">
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <p className="font-medium text-gray-500">Email</p>
-                    <p className="break-words">{selectedSession.email || "Not provided"}</p>
+                    <p className="font-medium text-slate-400">Email</p>
+                    <p className="break-words text-slate-200">{selectedSession.email || "Not provided"}</p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-500">Phone</p>
-                    <p>{selectedSession.phone_number || "Not provided"}</p>
+                    <p className="font-medium text-slate-400">Phone</p>
+                    <p className="text-slate-200">{selectedSession.phone_number || "Not provided"}</p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-500">Started</p>
-                    <p>{formatDateTime(selectedSession.created_at)}</p>
+                    <p className="font-medium text-slate-400">Started</p>
+                    <p className="text-slate-200">{formatDateTime(selectedSession.created_at)}</p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-500">Messages</p>
-                    <p>{selectedSession.messages.length}</p>
+                    <p className="font-medium text-slate-400">Messages</p>
+                    <p className="text-slate-200">{selectedSession.messages.length}</p>
                   </div>
                 </div>
               </div>
@@ -246,28 +247,28 @@ const ChatHistory = () => {
                 {selectedSession.messages.map((msg, idx) => (
                   <div key={idx} className="space-y-2">
                     <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0 bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-cyan-500 text-slate-950">
                         {selectedSession.full_name ? selectedSession.full_name.charAt(0) : "U"}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="bg-teal-100 text-teal-900 p-3 rounded-lg">
+                        <div className="rounded-lg border border-cyan-500/30 bg-cyan-500/10 p-3 text-cyan-100">
                           <p>{msg.query}</p>
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="mt-1 text-xs text-slate-400">
                           {formatDateTime(msg.timestamp)}
                         </p>
                       </div>
                     </div>
                     
                     <div className="flex items-start space-x-3 ml-12">
-                      <div className="flex-shrink-0 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-slate-950">
                         B
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="bg-green-100 text-green-900 p-3 rounded-lg">
+                        <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 text-emerald-100">
                           <p>{msg.response}</p>
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="mt-1 text-xs text-slate-400">
                           {formatDateTime(msg.timestamp)}
                         </p>
                       </div>

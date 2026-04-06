@@ -76,6 +76,7 @@ app/page.js
 Create `.env.local` and add required keys:
 
 ```
+NEXT_PUBLIC_API_BASE_URL=https://api.neurovise.co
 NEXT_PUBLIC_API_KEY=your_key_here
 ```
 

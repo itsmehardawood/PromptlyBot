@@ -11,7 +11,7 @@ export default function SystemPromptButton({locale}) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="w-full py-2 px-21  text-lg font-semibold text-white bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 hover:from-slate-800 hover:to-teal-900 rounded-xl transition duration-300 shadow-md"
+        className="w-full rounded-xl bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 px-4 py-3 text-base font-semibold text-white shadow-md transition duration-300 hover:from-slate-800 hover:to-teal-900"
       >
        {t('ManageSystemPrompt')}
       </button>
