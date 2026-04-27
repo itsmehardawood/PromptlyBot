@@ -1,10 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { X, Plus, Trash2, Edit3, Save, Search, AlertCircle, MessageSquare, Loader2 } from 'lucide-react';
 import { apiUrl } from '@/lib/api';
+import PromptOptimizer from './PromptOptimizer';
 
 export default function SystemPromptModal({ isOpen, onClose }) {
   // Existing system prompt state
   const [systemPrompt, setSystemPrompt] = useState('');
+  const [savedPrompt, setSavedPrompt] = useState('');
+  const [isEditingPrompt, setIsEditingPrompt] = useState(false);
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(false);
   
@@ -36,6 +39,24 @@ export default function SystemPromptModal({ isOpen, onClose }) {
     'Content-Type': 'application/json',
   }), []);
 
+  const parseErrorResponse = async (response) => {
+    try {
+      const data = await response.json();
+      if (typeof data?.detail === 'string' && data.detail.trim()) return data.detail;
+      if (Array.isArray(data?.detail) && data.detail.length > 0) {
+        return data.detail
+          .map((item) => item?.msg || JSON.stringify(item))
+          .join(', ');
+      }
+      if (typeof data?.message === 'string' && data.message.trim()) return data.message;
+      if (typeof data?.error === 'string' && data.error.trim()) return data.error;
+    } catch {
+      // Ignore JSON parse errors and fall back to status text.
+    }
+
+    return response.statusText || 'Request failed';
+  };
+
   // Optimized fetch functions with better error handling
   const fetchPrompt = useCallback(async () => {
     if (dataLoaded.prompt) return; // Skip if already loaded
@@ -51,7 +72,10 @@ export default function SystemPromptModal({ isOpen, onClose }) {
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       
       const data = await res.json();
-      setSystemPrompt(data.system_prompt || '');
+      const promptValue = data.text || data.system_prompt || data.prompt || data.systemPrompt || '';
+      setSystemPrompt(promptValue);
+      setSavedPrompt(promptValue);
+      setIsEditingPrompt(!promptValue.trim());
       setDataLoaded(prev => ({ ...prev, prompt: true }));
     } catch (err) {
       console.error('Fetch prompt error:', err);
@@ -109,16 +133,54 @@ export default function SystemPromptModal({ isOpen, onClose }) {
       return;
     }
 
+    const trimmedPrompt = systemPrompt.trim();
+    if (!trimmedPrompt) {
+      setError('System prompt cannot be empty');
+      return;
+    }
+
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE}/system-prompt`, {
-        method: 'PUT',
-        headers: getHeaders(token),
-        body: JSON.stringify({ system_prompt: systemPrompt }),
-      });
+      const requestAttempts = [
+        { method: 'PUT', body: { text: trimmedPrompt } },
+        {
+          method: 'PUT',
+          url: `${API_BASE}/system-prompt?system_prompt=${encodeURIComponent(trimmedPrompt)}`,
+          headers: { Authorization: `Bearer ${token}` },
+        },
+        { method: 'PUT', body: { system_prompt: trimmedPrompt } },
+        { method: 'PUT', body: { prompt: trimmedPrompt } },
+      ];
+
+      let saved = false;
+      let lastError = 'Failed to save system prompt';
+
+      for (const attempt of requestAttempts) {
+        const response = await fetch(attempt.url || `${API_BASE}/system-prompt`, {
+          method: attempt.method,
+          headers: attempt.headers || getHeaders(token),
+          body: attempt.body ? JSON.stringify(attempt.body) : undefined,
+        });
+
+        if (response.ok) {
+          saved = true;
+          break;
+        }
+
+        const detail = await parseErrorResponse(response);
+        lastError = `HTTP ${response.status}: ${detail}`;
+
+        // Stop retrying when auth fails or server errors occur.
+        if (response.status === 401 || response.status === 403 || response.status >= 500) {
+          break;
+        }
+      }
+
+      if (!saved) throw new Error(lastError);
       
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      
+      setSavedPrompt(trimmedPrompt);
+      setSystemPrompt(trimmedPrompt);
+      setIsEditingPrompt(false);
       console.log('Save successful');
       setError('');
     } catch (error) {
@@ -148,6 +210,8 @@ export default function SystemPromptModal({ isOpen, onClose }) {
       if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       
       setSystemPrompt('');
+      setSavedPrompt('');
+      setIsEditingPrompt(true);
       setError('');
     } catch (err) {
       console.error('Delete error:', err);
@@ -302,7 +366,13 @@ export default function SystemPromptModal({ isOpen, onClose }) {
   };
 
   // Reset state when modal closes
+  const handleApplyImprovedPrompt = (improvedPrompt) => {
+    setSystemPrompt(improvedPrompt);
+  };
+
   const handleClose = () => {
+    setSystemPrompt(savedPrompt);
+    setIsEditingPrompt(!savedPrompt.trim());
     setError('');
     setSearchQuery('');
     setShowNewQnAForm(false);
@@ -326,6 +396,8 @@ export default function SystemPromptModal({ isOpen, onClose }) {
   }, [isOpen]);
 
   if (!isOpen) return null;
+
+  const hasSavedPrompt = savedPrompt.trim().length > 0;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8 transition-opacity">
@@ -398,17 +470,66 @@ export default function SystemPromptModal({ isOpen, onClose }) {
               {activeTab === 'prompt' ? (
                 /* System Prompt Tab */
                 <div className="p-6 space-y-6">
-                  <textarea
-                    value={systemPrompt || ''}
-                    onChange={(e) => setSystemPrompt(e.target.value)}
-                    placeholder="Write your system prompt here..."
-                    className="h-64 w-full resize-none rounded-xl border border-slate-600 bg-slate-900 p-4 text-base font-medium text-slate-100 transition focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                  />
+                  {isEditingPrompt ? (
+                    <div className="space-y-3">
+                      <div className="rounded-2xl border border-slate-700 bg-slate-950/60 shadow-lg shadow-slate-950/30">
+                        <div className="flex items-center justify-between border-b border-slate-800 px-4 py-3">
+                          <div>
+                            <p className="text-sm font-semibold text-slate-100">Edit System Prompt</p>
+                            <p className="text-xs text-slate-400">Changes apply immediately after saving.</p>
+                          </div>
+                          <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-200">
+                            Editing
+                          </span>
+                        </div>
+                        <textarea
+                          value={systemPrompt || ''}
+                          onChange={(e) => setSystemPrompt(e.target.value)}
+                          placeholder="Write your system prompt here..."
+                          className="h-72 w-full resize-none bg-transparent p-4 text-[15px] leading-7 text-slate-100 outline-none placeholder:text-slate-500"
+                        />
+                      </div>
+                      <PromptOptimizer
+                        currentPrompt={systemPrompt}
+                        onApplyImproved={handleApplyImprovedPrompt}
+                      />
+                    </div>
+                  ) : (
+                    <div className="overflow-hidden rounded-2xl border border-slate-700 bg-slate-950/80 shadow-xl shadow-slate-950/30">
+                      <div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/60 px-4 py-3">
+                        <div>
+                          <p className="text-sm font-semibold text-slate-100">System Prompt</p>
+                          <p className="text-xs text-slate-400">
+                            {hasSavedPrompt ? 'Published and active' : 'No prompt configured yet'}
+                          </p>
+                        </div>
+                        <span className={`rounded-full border px-3 py-1 text-xs font-medium ${hasSavedPrompt ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200' : 'border-amber-500/30 bg-amber-500/10 text-amber-200'}`}>
+                          {hasSavedPrompt ? 'Active' : 'Draft'}
+                        </span>
+                      </div>
+
+                      {hasSavedPrompt ? (
+                        <div className="min-h-72 whitespace-pre-wrap px-4 py-5 text-[15px] leading-7 text-slate-100">
+                          {savedPrompt}
+                        </div>
+                      ) : (
+                        <div className="flex min-h-72 flex-col items-center justify-center px-6 py-10 text-center">
+                          <div className="mb-4 rounded-full border border-slate-700 bg-slate-900 p-4 text-slate-300">
+                            <Edit3 className="h-6 w-6" />
+                          </div>
+                          <h3 className="text-lg font-semibold text-slate-100">No system prompt yet</h3>
+                          <p className="mt-2 max-w-md text-sm leading-6 text-slate-400">
+                            Create a prompt to define tone, behavior, and response rules for the assistant.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 sm:gap-4">
                     <button
                       onClick={handleDeletePrompt}
-                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-rose-600 px-6 py-3 font-semibold text-white transition hover:bg-rose-500 disabled:opacity-50 sm:w-auto"
+                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-rose-500/30 bg-rose-500/10 px-6 py-3 font-semibold text-rose-200 transition hover:bg-rose-500/20 disabled:opacity-50 sm:w-auto"
                       disabled={loading}
                     >
                       {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : '🗑'}
@@ -417,21 +538,41 @@ export default function SystemPromptModal({ isOpen, onClose }) {
 
                     <div className="flex flex-col sm:flex-row gap-3">
                       <button
-                        onClick={handleClose}
+                        onClick={() => {
+                          if (isEditingPrompt && savedPrompt.trim()) {
+                            setSystemPrompt(savedPrompt);
+                            setIsEditingPrompt(false);
+                            return;
+                          }
+                          handleClose();
+                        }}
                         className="w-full rounded-xl border border-slate-600 bg-slate-900 px-6 py-3 font-semibold text-slate-200 transition hover:bg-slate-800 disabled:opacity-50 sm:w-auto"
                         disabled={loading}
                       >
-                        Cancel
+                        {isEditingPrompt ? 'Cancel' : 'Close'}
                       </button>
 
-                      <button
-                        onClick={handleSavePrompt}
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-400 disabled:opacity-50 sm:w-auto"
-                        disabled={loading}
-                      >
-                        {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : '💾'}
-                        Save
-                      </button>
+                      {isEditingPrompt ? (
+                        <button
+                          onClick={handleSavePrompt}
+                          className="flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-slate-950 shadow-md shadow-cyan-950/25 transition hover:bg-cyan-400 disabled:opacity-50 sm:w-auto"
+                          disabled={loading}
+                        >
+                          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : ''}
+                          Save
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            setSystemPrompt(savedPrompt);
+                            setIsEditingPrompt(true);
+                          }}
+                          className="flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-slate-950 shadow-md shadow-cyan-950/25 transition hover:bg-cyan-400 disabled:opacity-50 sm:w-auto"
+                          disabled={loading}
+                        >
+                          Edit
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

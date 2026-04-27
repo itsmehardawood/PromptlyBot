@@ -25,7 +25,8 @@ export default function ScriptGenerator({ locale }) {
 
   const toggleScript = () => {
     if (!showScript) {
-      const script = `<script src="https://promptly-bot.vercel.app/${locale}/api/chatbot-widget?userId=${userId}" async></script>`;
+      const origin = window.location.origin;
+      const script = `<script src="${origin}/${locale}/api/chatbot-widget?userId=${userId}" async></script>`;
       setScriptTag(script);
       setCopied(false);
     }
