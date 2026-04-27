@@ -1,10 +1,9 @@
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userId") || "unknown";
-  const locale = searchParams.get("locale") || "en";
   const origin = new URL(request.url).origin;
 
-  const embedUrl = `${origin}/${locale}/chatbot-embed?userId=${userId}`;
+  const embedUrl = `${origin}/chatbot-embed?userId=${userId}`;
 
   const jsCode = `
     console.log("✅ Injecting chatbot for userId: ${userId}");

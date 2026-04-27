@@ -26,7 +26,7 @@ export default function ScriptGenerator({ locale }) {
   const toggleScript = () => {
     if (!showScript) {
       const origin = window.location.origin;
-      const script = `<script src="${origin}/${locale}/api/chatbot-widget?userId=${userId}" async></script>`;
+      const script = `<script src="${origin}/api/chatbot-widget?userId=${userId}" async></script>`;
       setScriptTag(script);
       setCopied(false);
     }

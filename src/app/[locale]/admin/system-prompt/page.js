@@ -18,29 +18,29 @@ export default function AdminSystemPromptPage() {
     {
       question: "How do I write an effective system prompt?",
       answer:
-        "Be clear about the role, tone, and constraints. Include specific instructions for handling edge cases. Use the 'AI Tailor Prompt' feature to automatically improve your prompt using AI.",
+        "Be clear about the role, tone, and constraints. Include specific instructions for handling edge cases. Use the &apos;AI Tailor Prompt&apos; feature to automatically improve your prompt using AI.",
     },
     {
-      question: "What's the difference between System Prompt and Q&A?",
+      question: "What&apos;s the difference between System Prompt and Q&A?",
       answer:
         "System Prompt defines overall behavior and personality. Q&A items are specific question-answer pairs that handle common customer questions directly.",
     },
     {
       question: "Can I use AI to improve my prompt?",
       answer:
-        "Yes! Click 'AI Tailor Prompt' to have OpenAI enhance your prompt with professional structure, clarity, and best practices.",
+        "Yes! Click &apos;AI Tailor Prompt&apos; to have OpenAI enhance your prompt with professional structure, clarity, and best practices.",
     },
     {
       question: "How often should I update my system prompt?",
       answer:
-        "Review and update quarterly or when you notice the assistant's responses aren't meeting expectations. Use analytics to identify improvement areas.",
+        "Review and update quarterly or when you notice the assistant&apos;s responses aren&apos;t meeting expectations. Use analytics to identify improvement areas.",
     },
   ];
 
   const bestPractices = [
     {
       title: "Define Clear Role & Persona",
-      description: "Specify exactly what the assistant is and what it's responsible for.",
+      description: "Specify exactly what the assistant is and what it&apos;s responsible for.",
       icon: "🎭",
     },
     {
@@ -66,7 +66,7 @@ export default function AdminSystemPromptPage() {
       <div>
         <h1 className="text-4xl font-bold text-white">System Prompt Management</h1>
         <p className="mt-2 max-w-3xl text-base leading-6 text-slate-300">
-          Define your assistant's personality, behavior, and response guidelines. A well-crafted system prompt ensures consistent, professional, and on-brand interactions with your customers.
+          Define your assistant&apos;s personality, behavior, and response guidelines. A well-crafted system prompt ensures consistent, professional, and on-brand interactions with your customers.
         </p>
       </div>
 
@@ -237,7 +237,7 @@ export default function AdminSystemPromptPage() {
           <div>
             <p className="font-semibold text-amber-100">Pro Tip: Workflow Order</p>
             <p className="mt-1 text-sm text-amber-200">
-              1) Create and refine your system prompt first, 2) Use "AI Tailor Prompt" to optimize it, 3) Then add Q&A items to cover common questions. This ensures consistency across your assistant's responses.
+              1) Create and refine your system prompt first, 2) Use &quot;AI Tailor Prompt&quot; to optimize it, 3) Then add Q&amp;A items to cover common questions. This ensures consistency across your assistant&apos;s responses.
             </p>
           </div>
         </div>

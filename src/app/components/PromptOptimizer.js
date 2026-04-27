@@ -141,7 +141,7 @@ export default function PromptOptimizer({ currentPrompt, onApplyImproved }) {
                   <div className="rounded-lg border border-blue-500/30 bg-blue-500/10 p-3">
                     <p className="text-xs text-blue-200">
                       💡 <strong>Tip:</strong> Review the improved version. If you
-                      want to make adjustments before applying, click "Edit".
+                      want to make adjustments before applying, click &quot;Edit&quot;.
                     </p>
                   </div>
                 </div>

@@ -43,7 +43,7 @@ export default function ServicesAdminPage() {
     } else {
       setIsAuthChecked(true);
     }
-  }, []);
+  }, [locale, router]);
 
   useEffect(() => {
     const fetchServices = async () => {

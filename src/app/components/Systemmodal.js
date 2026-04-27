@@ -81,7 +81,7 @@ export default function SystemPromptModal({ isOpen, onClose }) {
       console.error('Fetch prompt error:', err);
       setError('Failed to load system prompt: ' + err.message);
     }
-  }, [dataLoaded.prompt, getAuthToken]);
+  }, [dataLoaded.prompt, getAuthToken, API_BASE]);
 
   const fetchQnaItems = useCallback(async () => {
     if (dataLoaded.qna) return; // Skip if already loaded
@@ -105,7 +105,7 @@ export default function SystemPromptModal({ isOpen, onClose }) {
       console.error('Fetch QnA error:', err);
       setError('Failed to load Q&A items: ' + err.message);
     }
-  }, [dataLoaded.qna, getAuthToken]);
+  }, [dataLoaded.qna, getAuthToken, API_BASE]);
 
   // Load both datasets in parallel when modal opens
   const loadInitialData = useCallback(async () => {
