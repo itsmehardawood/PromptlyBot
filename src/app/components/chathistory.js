@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import { IoIosChatboxes, IoMdClose } from "react-icons/io";
-import { FiClock } from "react-icons/fi";
+import { FiClock, FiDownload } from "react-icons/fi";
 import { apiUrl } from "@/lib/api";
 
 const ChatHistory = () => {
@@ -11,6 +11,7 @@ const ChatHistory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
   const [showAll, setShowAll] = useState(false);
+  const [isExportMenuOpen, setIsExportMenuOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -92,6 +93,75 @@ const ChatHistory = () => {
     setSelectedSession(null);
   };
 
+  const buildLeadRows = () => {
+    return chatSessions.map((session) => ({
+      Name: session.full_name || "",
+      Email: session.email || "",
+      Phone: session.phone_number || "",
+      "Date Time": formatDateTime(session.created_at),
+    }));
+  };
+
+  const triggerDownload = (content, filename, mimeType) => {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = filename;
+    link.click();
+
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+  };
+
+  const downloadCsv = () => {
+    const rows = buildLeadRows();
+    const headers = ["Name", "Email", "Phone", "Date Time"];
+    const escapeCell = (value) => {
+      const text = String(value ?? "");
+      return `"${text.replace(/"/g, '""')}"`;
+    };
+
+    const csvContent = [
+      headers.map(escapeCell).join(","),
+      ...rows.map((row) => headers.map((header) => escapeCell(row[header])).join(",")),
+    ].join("\n");
+
+    triggerDownload(csvContent, "chat-leads.csv", "text/csv;charset=utf-8;");
+  };
+
+  const downloadExcel = async () => {
+    const rows = buildLeadRows();
+    const xlsxModule = await import("xlsx");
+    const XLSX = xlsxModule.default ?? xlsxModule;
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
+
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+
+    triggerDownload(
+      excelBuffer,
+      "chat-leads.xlsx",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+  };
+
+  const handleExport = async (format) => {
+    setIsExportMenuOpen(false);
+
+    if (format === "csv") {
+      downloadCsv();
+      return;
+    }
+
+    await downloadExcel();
+  };
+
   // Determine which sessions to display
   const displayedSessions = showAll ? chatSessions : chatSessions.slice(0, 5);
   const hasMoreSessions = chatSessions.length > 5;
@@ -115,6 +185,47 @@ const ChatHistory = () => {
         </div>
       ) : (
         <>
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/80 px-4 py-3">
+            <div>
+              <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">
+                Leads export
+              </h2>
+              <p className="mt-1 text-sm text-slate-400">
+                Download the captured lead details as CSV or Excel.
+              </p>
+            </div>
+
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsExportMenuOpen((current) => !current)}
+                className="inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-400"
+              >
+                <FiDownload className="h-4 w-4" />
+                Download Leads
+              </button>
+
+              {isExportMenuOpen && (
+                <div className="absolute right-0 z-20 mt-2 w-44 overflow-hidden rounded-lg border border-slate-700 bg-slate-950 shadow-xl">
+                  <button
+                    type="button"
+                    onClick={() => handleExport("csv")}
+                    className="block w-full px-4 py-3 text-left text-sm text-slate-200 transition-colors hover:bg-slate-800"
+                  >
+                    Download CSV
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleExport("excel")}
+                    className="block w-full px-4 py-3 text-left text-sm text-slate-200 transition-colors hover:bg-slate-800"
+                  >
+                    Download Excel
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedSessions.map((session) => (
               <div 
